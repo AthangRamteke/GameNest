@@ -1,0 +1,10 @@
+{
+  "name": "gamenest",
+  "version": "1.0.0",
+  "description": "Eight classic browser games with computer opponents, built with plain HTML, CSS and JavaScript.",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes http-server . -p 3000 -c-1 -o",
+    "start": "npm run dev"
+  }
+}

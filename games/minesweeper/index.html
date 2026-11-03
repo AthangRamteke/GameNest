@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minesweeper · GameNest</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23141311%27/%3E%3Cpath d=%27M9 9l14 14M23 9L9 23%27 stroke=%27%238cc9ab%27 stroke-width=%273.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/shared.css">
+<style>
+.shell{max-width:560px}
+.hud{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;gap:12px}
+.hud div{display:flex;flex-direction:column;gap:2px}
+.hud .r{text-align:right}
+.field-wrap{width:100%;margin:0 auto}
+.mines{display:grid;gap:3px;padding:8px;background:var(--line);border-radius:14px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.t{aspect-ratio:1;border:0;padding:0;border-radius:5px;background:color-mix(in srgb,var(--ink) 16%,var(--surface));
+  font:600 clamp(.8rem,3.6vw,1.15rem) var(--sans);display:grid;place-items:center;cursor:pointer;transition:background .1s}
+.t:hover:not(.open){background:color-mix(in srgb,var(--ink) 26%,var(--surface))}
+.t.open{background:var(--surface);cursor:default}
+.t.boom{background:var(--x)}
+.t.wrong{background:color-mix(in srgb,var(--x) 35%,var(--surface))}
+.t svg{width:62%;height:62%}
+.n1{color:#2f6fb0}.n2{color:#2f7d4f}.n3{color:#c4452d}.n4{color:#6b4aa0}.n5{color:#a36a00}.n6{color:#13808f}.n7{color:var(--ink)}.n8{color:var(--muted)}
+@media (prefers-color-scheme:dark){.n1{color:#6aa8e6}.n2{color:#6cc58f}.n3{color:#ec7a62}.n4{color:#a98ae0}.n5{color:#e0b84a}.n6{color:#5cc4d3}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <nav class="crumb"><a class="brand" href="../../index.html">GameNest</a><span class="sep">/</span><span class="here">Minesweeper</span></nav>
+    <button class="icon-btn" id="mute" aria-label="Sound on" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="snd-on"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <svg viewBox="0 0 24 24" class="snd-off"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
+    </button>
+  </header>
+
+  <main class="view">
+    <div class="toolbar">
+      <div class="field"><span class="lbl">Size</span><div class="seg" id="segLevel"></div></div>
+      <div class="field"><span class="lbl">Tap action</span><div class="seg" id="segTool"></div></div>
+    </div>
+
+    <div class="hud">
+      <div><span class="lbl">Mines left</span><span class="big-num" id="left">0</span></div>
+      <div style="text-align:center"><span class="lbl">Best</span><span class="big-num" id="best">–</span></div>
+      <div class="r"><span class="lbl">Time</span><span class="big-num" id="time">0</span></div>
+    </div>
+
+    <div class="field-wrap"><div class="mines" id="grid" role="grid"></div></div>
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <div class="actions"><button class="btn primary" id="again">New game</button></div>
+  </main>
+  <footer class="foot">Right-click or long-press to flag · Click a number to clear around it once its flags match · Your first click is always safe</footer>
+</div>
+<script src="../../assets/shared.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

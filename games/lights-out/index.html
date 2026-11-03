@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lights Out · GameNest</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23141311%27/%3E%3Cpath d=%27M9 9l14 14M23 9L9 23%27 stroke=%27%238cc9ab%27 stroke-width=%273.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/shared.css">
+<style>
+.hud{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px}
+.hud div{display:flex;flex-direction:column;gap:2px}
+.hud .r{text-align:right}
+.lights{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:min(100%,400px);margin:0 auto}
+.l{aspect-ratio:1;border:1.5px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;
+  transition:background .2s,box-shadow .2s,border-color .2s,transform .12s}
+.l:active{transform:scale(.94)}
+.l.on{background:var(--gold);border-color:var(--gold)}
+.l.hint{animation:hint 1s ease-in-out infinite}
+@keyframes hint{50%{box-shadow:0 0 0 4px var(--ink)}}
+.lights.solved .l{pointer-events:none}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <nav class="crumb"><a class="brand" href="../../index.html">GameNest</a><span class="sep">/</span><span class="here">Lights Out</span></nav>
+    <button class="icon-btn" id="mute" aria-label="Sound on" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="snd-on"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <svg viewBox="0 0 24 24" class="snd-off"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
+    </button>
+  </header>
+
+  <main class="view">
+    <div class="hud">
+      <div><span class="lbl">Level</span><span class="big-num" id="level">1</span></div>
+      <div style="text-align:center"><span class="lbl">Highest</span><span class="big-num" id="high">1</span></div>
+      <div class="r"><span class="lbl">Moves</span><span class="big-num" id="moves">0</span></div>
+    </div>
+    <p id="status" class="status" aria-live="polite"></p>
+    <div class="lights" id="grid" role="grid"></div>
+
+    <div class="actions">
+      <button class="btn" id="hint">Hint</button>
+      <button class="btn" id="reset">Restart level</button>
+      <button class="btn primary" id="next" hidden>Next level</button>
+    </div>
+  </main>
+  <footer class="foot">Tapping a light toggles it and its four neighbours · Every puzzle is solvable · Hints show one tap that is part of a solution</footer>
+</div>
+<script src="../../assets/shared.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

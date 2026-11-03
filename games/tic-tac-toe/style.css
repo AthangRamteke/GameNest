@@ -1,0 +1,45 @@
+/* Tic-Tac-Toe specifics; tokens and common components live in assets/shared.css */
+.intro h1{font:500 clamp(2.2rem,8vw,3rem)/1.08 var(--serif);margin:0 0 12px;letter-spacing:-.02em}
+.intro p{margin:0;color:var(--muted);max-width:34ch}
+.setup{margin-top:32px;display:flex;flex-direction:column;gap:24px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{margin-bottom:10px}
+#aiOptions{display:flex;flex-direction:column;gap:24px}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{position:relative;cursor:pointer}
+.card input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.card-body{display:flex;flex-direction:column;gap:2px;height:100%;padding:16px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--surface);transition:border-color .15s,box-shadow .15s}
+.card-body svg{width:26px;height:26px;margin-bottom:10px;fill:none;stroke:var(--muted);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.card-body strong{font-weight:600}
+.card-body small{color:var(--muted);font-size:.84rem}
+.card:hover .card-body{border-color:var(--muted)}
+.card input:checked + .card-body{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.card input:checked + .card-body svg{stroke:var(--accent)}
+.card input:focus-visible + .card-body{outline:2px solid var(--accent);outline-offset:3px}
+.setup .btn.primary{padding:15px;font-size:1.02rem}
+
+.status .m{font-weight:600}
+.status .m.X{color:var(--x)} .status .m.O{color:var(--o)}
+
+.board-wrap{position:relative;width:min(100%,380px);margin:0 auto;aspect-ratio:1}
+.board{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:100%;height:100%}
+.cell{position:relative;background:transparent;border:0;padding:14%;cursor:pointer;
+  border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transition:background .15s}
+.cell:nth-child(3n){border-right:0}
+.cell:nth-child(n+7){border-bottom:0}
+.cell:hover:not(:disabled):empty{background:var(--surface)}
+.cell:disabled{cursor:default}
+.cell svg{width:100%;height:100%;overflow:visible;fill:none;stroke-width:9;stroke-linecap:round}
+.cell svg path,.cell svg circle{stroke-dasharray:1;stroke-dashoffset:0;animation:draw .32s ease-out backwards}
+.cell svg path + path{animation-delay:.14s}
+.cell.X svg{stroke:var(--x)} .cell.O svg{stroke:var(--o)}
+.board.over .cell:not(.win) svg{opacity:.35;transition:opacity .3s}
+@keyframes draw{from{stroke-dashoffset:1}}
+
+.strike{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.strike line{stroke:var(--ink);stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.strike.show line{opacity:1;animation:draw-in .45s .25s ease-out forwards}
+@keyframes draw-in{to{stroke-dashoffset:0}}
+
+@media (max-width:420px){.cards{grid-template-columns:1fr}}

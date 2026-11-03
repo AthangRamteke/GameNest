@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tic-Tac-Toe · GameNest</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23141311%27/%3E%3Cpath d=%27M9 9l14 14M23 9L9 23%27 stroke=%27%238cc9ab%27 stroke-width=%273.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/shared.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <nav class="crumb"><a class="brand" href="../../index.html">GameNest</a><span class="sep">/</span><span class="here">Tic-Tac-Toe</span></nav>
+    <button class="icon-btn" id="mute" aria-label="Sound on" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="snd-on"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <svg viewBox="0 0 24 24" class="snd-off"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
+    </button>
+  </header>
+
+  <!-- Setup -->
+  <main id="menu" class="view">
+    <div class="intro">
+      <h1>Tic-Tac-Toe</h1>
+      <p>Pick an opponent, set the difficulty, and play.</p>
+    </div>
+
+    <form class="setup" id="setup" autocomplete="off">
+      <fieldset>
+        <legend>Opponent</legend>
+        <div class="cards">
+          <label class="card">
+            <input type="radio" name="mode" value="ai" checked>
+            <span class="card-body">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/></svg>
+              <strong>One player</strong>
+              <small>Play the computer</small>
+            </span>
+          </label>
+          <label class="card">
+            <input type="radio" name="mode" value="pvp">
+            <span class="card-body">
+              <svg viewBox="0 0 24 24"><circle cx="8.5" cy="8.5" r="3"/><circle cx="16.5" cy="9.5" r="2.5"/><path d="M2.5 19c.6-3.4 3-5 6-5s5.4 1.6 6 5M15 14.3c3 0 5.2 1.4 6.5 4.7"/></svg>
+              <strong>Two players</strong>
+              <small>Take turns on this device</small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div id="aiOptions">
+        <fieldset>
+          <legend>Difficulty</legend>
+          <div class="seg">
+            <label><input type="radio" name="difficulty" value="easy"><span>Easy</span></label>
+            <label><input type="radio" name="difficulty" value="medium" checked><span>Medium</span></label>
+            <label><input type="radio" name="difficulty" value="hard"><span>Unbeatable</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>You play</legend>
+          <div class="seg">
+            <label><input type="radio" name="side" value="X" checked><span>X · moves first</span></label>
+            <label><input type="radio" name="side" value="O"><span>O · moves second</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <button type="submit" class="btn primary">Start game</button>
+    </form>
+  </main>
+
+  <!-- Game -->
+  <section id="game" class="view" hidden>
+    <div class="stats">
+      <div class="stat" id="scoreX" style="--c:var(--x)"><span class="who" id="nameX"></span><span class="num" id="sx">0</span></div>
+      <div class="stat mid"><span class="who">Draws</span><span class="num" id="sd">0</span></div>
+      <div class="stat r" id="scoreO" style="--c:var(--o)"><span class="who" id="nameO"></span><span class="num" id="so">0</span></div>
+    </div>
+
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <div class="board-wrap">
+      <div class="board" id="board"></div>
+      <svg class="strike" viewBox="0 0 300 300" aria-hidden="true"><line id="strike" x1="0" y1="0" x2="0" y2="0" pathLength="1"/></svg>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="undo">Undo</button>
+      <button class="btn" id="menuBtn">Change settings</button>
+      <button class="btn primary" id="again">New round</button>
+    </div>
+  </section>
+
+  <footer class="foot">Minimax with alpha-beta pruning · Scores are saved on this device</footer>
+</div>
+<script src="../../assets/shared.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

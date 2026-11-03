@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snake · GameNest</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23141311%27/%3E%3Cpath d=%27M9 9l14 14M23 9L9 23%27 stroke=%27%238cc9ab%27 stroke-width=%273.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/shared.css">
+<style>
+.hud{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+.hud div{display:flex;flex-direction:column;gap:2px}
+.hud .r{text-align:right}
+.stage{position:relative;width:min(100%,460px);margin:0 auto;aspect-ratio:1;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);background:var(--surface);touch-action:none}
+canvas{display:block;width:100%;height:100%}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;
+  background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(2px);padding:20px}
+.overlay h2{margin:0;font:500 1.7rem var(--serif)}
+.overlay p{margin:0 0 10px;color:var(--muted);font-size:.92rem}
+.pad{display:none;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,56px);gap:8px;justify-content:center;margin-top:18px}
+.pad button{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);font-size:1.2rem;cursor:pointer}
+.pad .up{grid-column:2}
+@media (pointer:coarse){.pad{display:grid}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <nav class="crumb"><a class="brand" href="../../index.html">GameNest</a><span class="sep">/</span><span class="here">Snake</span></nav>
+    <button class="icon-btn" id="mute" aria-label="Sound on" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="snd-on"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <svg viewBox="0 0 24 24" class="snd-off"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
+    </button>
+  </header>
+
+  <main class="view">
+    <div class="toolbar">
+      <div class="field"><span class="lbl">Player</span><div class="seg" id="segPlayer"></div></div>
+      <div class="field"><span class="lbl">Speed</span><div class="seg" id="segSpeed"></div></div>
+    </div>
+
+    <div class="hud">
+      <div><span class="lbl">Score</span><span class="big-num" id="score">0</span></div>
+      <div class="r"><span class="lbl">Best</span><span class="big-num" id="best">0</span></div>
+    </div>
+
+    <div class="stage" id="stage">
+      <canvas id="cv" aria-label="Snake game board"></canvas>
+      <div class="overlay" id="overlay">
+        <h2 id="ovTitle">Snake</h2>
+        <p id="ovText">Arrow keys or WASD to steer. Space pauses.</p>
+        <button class="btn primary" id="go">Start</button>
+      </div>
+    </div>
+
+    <div class="pad" aria-hidden="true">
+      <button class="up" data-d="up">↑</button>
+      <button data-d="left" style="grid-row:2">←</button>
+      <button data-d="down" style="grid-row:2">↓</button>
+      <button data-d="right" style="grid-row:2">→</button>
+    </div>
+  </main>
+  <footer class="foot">Swipe on the board, use the arrow keys, or let the pathfinding AI take over</footer>
+</div>
+<script src="../../assets/shared.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
